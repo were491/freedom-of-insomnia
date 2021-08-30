@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "freedomofinsomnia",
+  "version": "${version}",
+
+  "name": "Freedom of Insomnia",
+  "description": "Allows phantom spawning per-player on servers.",
+  "authors": [
+    "were491 (rha1117)"
+  ],
+  "contact": {
+    "homepage": "https://github.com/were491",
+    "sources": "https://github.com/were491/freedom-of-insomnia"
+  },
+
+  "license": "LGPL v3.0",
+  "icon": "assets/freedomofinsomnia/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.rha1117.freedomofinsomnia.InsomniaCommand"
+    ]
+  },
+  "mixins": [
+    "freedomofinsomnia.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.11.3",
+    "fabric": "*",
+    "minecraft": "1.17.x",
+    "java": ">=16"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

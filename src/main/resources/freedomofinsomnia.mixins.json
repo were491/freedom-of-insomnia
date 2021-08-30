@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.rha1117.freedomofinsomnia.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "mixins": [
+    "CommandMixin", "PhantomSpawnerMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
