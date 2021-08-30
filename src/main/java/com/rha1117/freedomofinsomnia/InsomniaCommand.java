@@ -43,22 +43,22 @@ public class InsomniaCommand implements ModInitializer {
 	}
 
 	private int displayStatus(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-		if (((CommandMixinInterface) context.getSource().getPlayer()).getInsomniaEnabled()) {
-			context.getSource().sendFeedback(new LiteralText("Insomnia is currently enabled.").formatted(Formatting.GREEN), false);
-		} else {
+		if (((CommandMixinInterface) context.getSource().getPlayer()).getInsomniaDisabled()) {
 			context.getSource().sendFeedback(new LiteralText("Insomnia is currently disabled.").formatted(Formatting.RED), false);
+		} else {
+			context.getSource().sendFeedback(new LiteralText("Insomnia is currently enabled.").formatted(Formatting.GREEN), false);
 		}
 		return 1;
 	}
 	
 	private int enableInsomnia(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-		((CommandMixinInterface) context.getSource().getPlayer()).setInsomniaEnabled(true);
+		((CommandMixinInterface) context.getSource().getPlayer()).setInsomniaDisabled(false);
 		context.getSource().sendFeedback(new LiteralText("Insomnia is now enabled.").formatted(Formatting.GREEN), false);
 		return 1;
 	}
 	
 	private int disableInsomnia(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-		((CommandMixinInterface) context.getSource().getPlayer()).setInsomniaEnabled(false);
+		((CommandMixinInterface) context.getSource().getPlayer()).setInsomniaDisabled(true);
 		context.getSource().sendFeedback(new LiteralText("Insomnia is now disabled.").formatted(Formatting.RED), false);
 		return 1;
 	}

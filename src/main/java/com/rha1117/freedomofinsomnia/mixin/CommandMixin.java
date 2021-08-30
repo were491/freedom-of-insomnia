@@ -20,23 +20,24 @@ public abstract class CommandMixin extends PlayerEntity implements CommandMixinI
 		super(world, pos, yaw, profile);
 	}
 	
-	private boolean insomniaEnabled = true;
+	private boolean insomniaDisabled;
 	
-	public void setInsomniaEnabled(boolean enabled) {
-		insomniaEnabled = enabled;
+	public void setInsomniaDisabled(boolean disabled) {
+		insomniaDisabled = disabled;
 	}
 	
-	public boolean getInsomniaEnabled() {
-		return insomniaEnabled;
+	public boolean getInsomniaDisabled() {
+		return insomniaDisabled;
 	}
 	
 	@Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
 	public void writeCustomDataToNbt (NbtCompound tag, CallbackInfo info) {
-		tag.putBoolean("insomniaEnabled", insomniaEnabled);
+		tag.putBoolean("insomniaDisabled", insomniaDisabled);
 	}
 	
 	@Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
 	public void readCustomDataFromNbt(NbtCompound tag, CallbackInfo info) {
-		insomniaEnabled = tag.getBoolean("insomniaEnabled");
+		// Returns false if the tag doesn't already exist.
+		insomniaDisabled = tag.getBoolean("insomniaDisabled");
 	}
 }
