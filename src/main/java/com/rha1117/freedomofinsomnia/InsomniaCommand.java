@@ -10,6 +10,7 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 
 public class InsomniaCommand implements ModInitializer {
 	@Override
@@ -38,6 +39,11 @@ public class InsomniaCommand implements ModInitializer {
 			insomniaNode.addChild(enableNode);
 			insomniaNode.addChild(disableNode);
 			insomniaNode.addChild(statusNode);
+		});
+		
+		// Register an event to persist insomnia status past death.
+		ServerPlayerEvents.AFTER_RESPAWN.register((oldPlayer, newPlayer, alive) -> {
+			((CommandMixinInterface) newPlayer).setInsomniaDisabled( ((CommandMixinInterface) oldPlayer).getInsomniaDisabled() );
 		});
 		
 	}
