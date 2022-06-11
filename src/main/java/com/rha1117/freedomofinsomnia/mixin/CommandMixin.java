@@ -1,5 +1,7 @@
 package com.rha1117.freedomofinsomnia.mixin;
 
+import net.minecraft.network.encryption.PlayerPublicKey;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,12 +18,12 @@ import net.minecraft.world.World;
 
 @Mixin(ServerPlayerEntity.class)
 public abstract class CommandMixin extends PlayerEntity implements CommandMixinInterface {
-	public CommandMixin(World world, BlockPos pos, float yaw, GameProfile profile) {
-		super(world, pos, yaw, profile);
+	public CommandMixin(World world, BlockPos pos, float yaw, GameProfile gameProfile, @Nullable PlayerPublicKey publicKey) {
+		super(world, pos, yaw, gameProfile, publicKey);
 	}
 	
 	private boolean insomniaDisabled;
-	
+
 	public void setInsomniaDisabled(boolean disabled) {
 		insomniaDisabled = disabled;
 	}
