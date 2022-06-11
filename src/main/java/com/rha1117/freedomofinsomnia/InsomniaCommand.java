@@ -1,6 +1,7 @@
 package com.rha1117.freedomofinsomnia;
 
 import com.mojang.brigadier.context.CommandContext;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -9,8 +10,6 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-
-import java.util.Objects;
 
 public class InsomniaCommand implements DedicatedServerModInitializer {
 	@Override
@@ -46,8 +45,8 @@ public class InsomniaCommand implements DedicatedServerModInitializer {
 				((CommandMixinInterface) newPlayer).setInsomniaDisabled( ((CommandMixinInterface) oldPlayer).getInsomniaDisabled() ));
 	}
 
-	private int displayStatus(CommandContext<ServerCommandSource> context) {
-		if (((CommandMixinInterface) Objects.requireNonNull(context.getSource().getPlayer())).getInsomniaDisabled()) {
+	private int displayStatus(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+		if (((CommandMixinInterface) context.getSource().getPlayerOrThrow()).getInsomniaDisabled()) {
 			context.getSource().sendFeedback(Text.literal("Insomnia is currently disabled.").formatted(Formatting.RED), false);
 			return 0;
 		} else {
@@ -56,14 +55,14 @@ public class InsomniaCommand implements DedicatedServerModInitializer {
 		}
 	}
 	
-	private int enableInsomnia(CommandContext<ServerCommandSource> context) {
-		((CommandMixinInterface) Objects.requireNonNull(context.getSource().getPlayer())).setInsomniaDisabled(false);
+	private int enableInsomnia(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+		((CommandMixinInterface) context.getSource().getPlayerOrThrow()).setInsomniaDisabled(false);
 		context.getSource().sendFeedback(Text.literal("Insomnia is now enabled.").formatted(Formatting.GREEN), false);
 		return 1;
 	}
 	
-	private int disableInsomnia(CommandContext<ServerCommandSource> context) {
-		((CommandMixinInterface) Objects.requireNonNull(context.getSource().getPlayer())).setInsomniaDisabled(true);
+	private int disableInsomnia(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+		((CommandMixinInterface) context.getSource().getPlayerOrThrow()).setInsomniaDisabled(true);
 		context.getSource().sendFeedback(Text.literal("Insomnia is now disabled.").formatted(Formatting.RED), false);
 		return 1;
 	}
