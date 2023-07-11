@@ -6,17 +6,17 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import com.rha1117.freedomofinsomnia.CommandMixinInterface;
 
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.spawner.PhantomSpawner;
 
 @Mixin(PhantomSpawner.class)
 public class PhantomSpawnerMixin {
-	private PlayerEntity player;
+
+	private ServerPlayerEntity player;
 	
 	// This is just to access the playerEntity variable.
-	@ModifyVariable(method = "spawn(Lnet/minecraft/server/world/ServerWorld;ZZ)I", at = @At("STORE"), index = 7)
-	private PlayerEntity onLoop(PlayerEntity playerEntity) {
+	@ModifyVariable(method = "spawn(Lnet/minecraft/server/world/ServerWorld;ZZ)I", at = @At("STORE"), index =7)
+	private ServerPlayerEntity onLoop(ServerPlayerEntity playerEntity) {
 		return player = playerEntity;
 	}
 	

@@ -47,23 +47,23 @@ public class InsomniaCommand implements DedicatedServerModInitializer {
 
 	private int displayStatus(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
 		if (((CommandMixinInterface) context.getSource().getPlayerOrThrow()).getInsomniaDisabled()) {
-			context.getSource().sendFeedback(Text.literal("Insomnia is currently disabled.").formatted(Formatting.RED), false);
+			context.getSource().sendMessage(Text.literal("Insomnia is currently disabled.").formatted(Formatting.RED));
 			return 0;
 		} else {
-			context.getSource().sendFeedback(Text.literal("Insomnia is currently enabled.").formatted(Formatting.GREEN), false);
+			context.getSource().sendMessage(Text.literal("Insomnia is currently enabled.").formatted(Formatting.GREEN));
 			return 1;
 		}
 	}
 	
 	private int enableInsomnia(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
 		((CommandMixinInterface) context.getSource().getPlayerOrThrow()).setInsomniaDisabled(false);
-		context.getSource().sendFeedback(Text.literal("Insomnia is now enabled.").formatted(Formatting.GREEN), false);
+		context.getSource().sendMessage(Text.literal("Insomnia is now enabled.").formatted(Formatting.GREEN));
 		return 1;
 	}
 	
 	private int disableInsomnia(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
 		((CommandMixinInterface) context.getSource().getPlayerOrThrow()).setInsomniaDisabled(true);
-		context.getSource().sendFeedback(Text.literal("Insomnia is now disabled.").formatted(Formatting.RED), false);
+		context.getSource().sendMessage(Text.literal("Insomnia is now disabled.").formatted(Formatting.RED));
 		return 1;
 	}
 }
