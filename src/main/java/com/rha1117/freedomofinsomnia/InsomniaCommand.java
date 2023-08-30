@@ -3,7 +3,7 @@ package com.rha1117.freedomofinsomnia;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import net.fabricmc.api.DedicatedServerModInitializer;
+import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.server.command.CommandManager;
@@ -11,9 +11,9 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-public class InsomniaCommand implements DedicatedServerModInitializer {
+public class InsomniaCommand implements ModInitializer {
 	@Override
-	public void onInitializeServer() {
+	public void onInitialize() {
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			LiteralCommandNode<ServerCommandSource> insomniaNode = CommandManager
 					.literal("insomnia")
