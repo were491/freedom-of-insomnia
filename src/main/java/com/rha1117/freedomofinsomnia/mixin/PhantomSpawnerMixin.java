@@ -1,32 +1,24 @@
 package com.rha1117.freedomofinsomnia.mixin;
 
+import com.rha1117.freedomofinsomnia.CommandMixinInterface;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.spawner.PhantomSpawner;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import com.rha1117.freedomofinsomnia.CommandMixinInterface;
-
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.world.spawner.PhantomSpawner;
+import java.util.Iterator;
 
 @Mixin(PhantomSpawner.class)
 public class PhantomSpawnerMixin {
-
-	private ServerPlayerEntity player;
-	
-	// This is just to access the playerEntity variable.
-	@ModifyVariable(method = "spawn(Lnet/minecraft/server/world/ServerWorld;ZZ)I", at = @At("STORE"), index =7)
-	private ServerPlayerEntity onLoop(ServerPlayerEntity playerEntity) {
-		return player = playerEntity;
-	}
-	
-	@ModifyVariable(method = "spawn(Lnet/minecraft/server/world/ServerWorld;ZZ)I", at = @At("STORE"), index = 11)
-	private int onSpawn(int j) {
-		if (((CommandMixinInterface) player).getInsomniaDisabled()) {
-			// Returning 1 (one) prevents phantom spawns by causing a random chance to always fail and skip spawning for this player.
-			return 1;
-		} else {
-			return j;
+	@Inject(method = "spawn", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerPlayerEntity;isSpectator()Z"), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+	public void spawn(ServerWorld world, boolean spawnMonsters, boolean spawnAnimals, CallbackInfoReturnable<Integer> cir, Random random, int i, Iterator<ServerPlayerEntity> iterator, ServerPlayerEntity serverPlayerEntity) {
+		if (((CommandMixinInterface) serverPlayerEntity).freedom_of_insomnia$getInsomniaDisabled()) {
+			cir.setReturnValue(i);
 		}
 	}
 }

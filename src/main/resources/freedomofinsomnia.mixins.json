@@ -1,11 +1,11 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "com.rha1117.freedomofinsomnia.mixin",
   "compatibilityLevel": "JAVA_17",
-  "server": [
-    "CommandMixin",
-    "PhantomSpawnerMixin"
+  "mixins": [
+    "PhantomSpawnerMixin",
+    "PhantomTargetMixin",
+    "ServerPlayerEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
