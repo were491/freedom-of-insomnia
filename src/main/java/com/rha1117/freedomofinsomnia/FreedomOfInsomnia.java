@@ -11,7 +11,7 @@ import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-public class InsomniaCommand implements ModInitializer {
+public class FreedomOfInsomnia implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
@@ -41,8 +41,7 @@ public class InsomniaCommand implements ModInitializer {
 		});
 
 		// Register an event to persist insomnia status past death.
-		ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) ->
-				((CommandMixinInterface) newPlayer).freedom_of_insomnia$setInsomniaDisabled( ((CommandMixinInterface) oldPlayer).freedom_of_insomnia$getInsomniaDisabled() ));
+		ServerPlayerEvents.COPY_FROM.register((oldPlayer, newPlayer, alive) -> ((CommandMixinInterface) newPlayer).freedom_of_insomnia$setInsomniaDisabled(((CommandMixinInterface) oldPlayer).freedom_of_insomnia$getInsomniaDisabled()));
 	}
 
 	private int displayStatus(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {

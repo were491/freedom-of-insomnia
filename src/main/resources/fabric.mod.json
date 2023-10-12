@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.rha1117.freedomofinsomnia.InsomniaCommand"
+      "com.rha1117.freedomofinsomnia.FreedomOfInsomnia"
     ]
   },
   "mixins": [

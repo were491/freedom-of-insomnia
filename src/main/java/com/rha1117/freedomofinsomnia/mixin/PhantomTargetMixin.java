@@ -10,7 +10,6 @@ import java.util.List;
 
 @Mixin(targets = "net.minecraft.entity.mob.PhantomEntity$FindTargetGoal")
 public class PhantomTargetMixin {
-
     @ModifyVariable(method = "canStart()Z", at = @At("STORE"), index = 1)
     private List<PlayerEntity> modifyTargetList(List<PlayerEntity> value){
 
@@ -18,5 +17,4 @@ public class PhantomTargetMixin {
 
         return value;
     }
-
 }
