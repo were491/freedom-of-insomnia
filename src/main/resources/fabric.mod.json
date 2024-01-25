@@ -8,12 +8,16 @@
   "authors": [
     "were491 (rha1117)"
   ],
+  "contributors": [
+    "ArkoSammy12",
+    "unilock"
+  ],
   "contact": {
     "homepage": "https://github.com/were491",
     "sources": "https://github.com/were491/freedom-of-insomnia"
   },
 
-  "license": "LGPL v3.0",
+  "license": "LGPL-3.0-only",
   "icon": "assets/freedomofinsomnia/icon.png",
 
   "environment": "*",

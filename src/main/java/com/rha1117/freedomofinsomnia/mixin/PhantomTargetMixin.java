@@ -12,7 +12,6 @@ import java.util.List;
 public class PhantomTargetMixin {
     @ModifyVariable(method = "canStart()Z", at = @At("STORE"), index = 1)
     private List<PlayerEntity> modifyTargetList(List<PlayerEntity> value){
-
         value.removeIf(player -> ((CommandMixinInterface) player).freedom_of_insomnia$getInsomniaDisabled());
 
         return value;
