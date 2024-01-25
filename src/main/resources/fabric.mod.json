@@ -8,18 +8,22 @@
   "authors": [
     "were491 (rha1117)"
   ],
+  "contributors": [
+    "ArkoSammy12",
+    "unilock"
+  ],
   "contact": {
     "homepage": "https://github.com/were491",
     "sources": "https://github.com/were491/freedom-of-insomnia"
   },
 
-  "license": "LGPL v3.0",
+  "license": "LGPL-3.0-only",
   "icon": "assets/freedomofinsomnia/icon.png",
 
-  "environment": "server",
+  "environment": "*",
   "entrypoints": {
-    "server": [
-      "com.rha1117.freedomofinsomnia.InsomniaCommand"
+    "main": [
+      "com.rha1117.freedomofinsomnia.FreedomOfInsomnia"
     ]
   },
   "mixins": [
@@ -27,12 +31,8 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.14.7",
-    "fabric": "*",
-    "minecraft": "1.19.x",
-    "java": ">=17"
-  },
-  "suggests": {
-    "another-mod": "*"
+    "fabricloader": "*",
+    "fabric-api": "*",
+    "minecraft": ">=1.20.3"
   }
 }
