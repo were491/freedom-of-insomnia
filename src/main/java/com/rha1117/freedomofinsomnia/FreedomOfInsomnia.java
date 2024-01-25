@@ -17,27 +17,16 @@ public class FreedomOfInsomnia implements ModInitializer {
 		CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
 			LiteralCommandNode<ServerCommandSource> insomniaNode = CommandManager
 					.literal("insomnia")
+						.executes(this::displayStatus)
 				        .build();
 
-			LiteralCommandNode<ServerCommandSource> enableNode = CommandManager
-					.literal("enable")
-				        .executes(this::enableInsomnia)
-				        .build();
-
-			LiteralCommandNode<ServerCommandSource> disableNode = CommandManager
-					.literal("disable")
-				        .executes(this::disableInsomnia)
-				        .build();
-
-			LiteralCommandNode<ServerCommandSource> statusNode = CommandManager
-					.literal("status")
-				        .executes(this::displayStatus)
+			LiteralCommandNode<ServerCommandSource> toggleNode = CommandManager
+					.literal("toggle")
+				        .executes(this::toggleInsomnia)
 				        .build();
 
 			dispatcher.getRoot().addChild(insomniaNode);
-			insomniaNode.addChild(enableNode);
-			insomniaNode.addChild(disableNode);
-			insomniaNode.addChild(statusNode);
+			insomniaNode.addChild(toggleNode);
 		});
 
 		// Register an event to persist insomnia status past death.
@@ -45,23 +34,19 @@ public class FreedomOfInsomnia implements ModInitializer {
 	}
 
 	private int displayStatus(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-		if (((CommandMixinInterface) context.getSource().getPlayerOrThrow()).freedom_of_insomnia$getInsomniaDisabled()) {
-			context.getSource().sendFeedback(() -> Text.literal("Insomnia is currently disabled.").formatted(Formatting.RED), false);
-		} else {
-			context.getSource().sendFeedback(() -> Text.literal("Insomnia is currently enabled.").formatted(Formatting.GREEN), false);
-		}
+		boolean insomniaDisabled = ((CommandMixinInterface) context.getSource().getPlayerOrThrow()).freedom_of_insomnia$getInsomniaDisabled();
+
+		context.getSource().sendFeedback(() -> Text.literal("Insomnia is currently ").append(insomniaDisabled ? Text.literal("disabled").formatted(Formatting.RED) : Text.literal("enabled").formatted(Formatting.GREEN)).append("."), false);
+
 		return 0;
 	}
 
-	private int enableInsomnia(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-		((CommandMixinInterface) context.getSource().getPlayerOrThrow()).freedom_of_insomnia$setInsomniaDisabled(false);
-		context.getSource().sendFeedback(() -> Text.literal("Insomnia is now enabled.").formatted(Formatting.GREEN), false);
-		return 0;
-	}
+	private int toggleInsomnia(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+		CommandMixinInterface player = (CommandMixinInterface) context.getSource().getPlayerOrThrow();
 
-	private int disableInsomnia(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-		((CommandMixinInterface) context.getSource().getPlayerOrThrow()).freedom_of_insomnia$setInsomniaDisabled(true);
-		context.getSource().sendFeedback(() -> Text.literal("Insomnia is now disabled.").formatted(Formatting.RED), false);
+		player.freedom_of_insomnia$setInsomniaDisabled(!player.freedom_of_insomnia$getInsomniaDisabled());
+		context.getSource().sendFeedback(() -> Text.literal("Insomnia is now ").append(player.freedom_of_insomnia$getInsomniaDisabled() ? Text.literal("disabled").formatted(Formatting.RED) : Text.literal("enabled").formatted(Formatting.GREEN)).append(Text.literal(".")), false);
+
 		return 0;
 	}
 }

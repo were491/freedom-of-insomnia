@@ -25,12 +25,12 @@ public abstract class ServerPlayerEntityMixin implements CommandMixinInterface {
 	}
 
 	@Inject(method = "writeCustomDataToNbt", at = @At("RETURN"))
-	public void writeCustomDataToNbt (NbtCompound tag, CallbackInfo info) {
+	private void writeCustomDataToNbt(NbtCompound tag, CallbackInfo info) {
 		tag.putBoolean("insomniaDisabled", insomniaDisabled);
 	}
 
 	@Inject(method = "readCustomDataFromNbt", at = @At("RETURN"))
-	public void readCustomDataFromNbt(NbtCompound tag, CallbackInfo info) {
+	private void readCustomDataFromNbt(NbtCompound tag, CallbackInfo info) {
 		// Returns false if the tag doesn't already exist.
 		insomniaDisabled = tag.getBoolean("insomniaDisabled");
 	}
